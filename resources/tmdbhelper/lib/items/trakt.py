@@ -7,8 +7,17 @@ class TraktPlayData():
         self._watchedindicators = watchedindicators  # Set watched status and playcount
 
     @property
+    def is_authorized(self):
+        """ Watched data and play progress come from the sync source selected for watched items """
+        from tmdbhelper.lib.sync.auth import SyncAuthorisation
+        sync_authorisation = SyncAuthorisation('sync_source_watched')
+        if sync_authorisation.authorisation_type in ('Trakt', ''):  # Unset falls back to Trakt
+            return self.trakt_api.authenticator.is_authorized
+        return sync_authorisation.is_authorized
+
+    @property
     def is_enabled(self):
-        if self.trakt_api.authenticator.is_authorized:
+        if self.is_authorized:
             if self._watchedindicators:
                 return bool(self.syncdata)
             if self._pauseplayprogress:
