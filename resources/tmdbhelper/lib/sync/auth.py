@@ -18,4 +18,6 @@ class SyncAuthorisation:
             return bool(get_property('TraktIsAuth'))
         if self.authorisation_type == 'MDbList':
             return bool(get_setting('mdblist_apikey', 'str'))
+        if self.authorisation_type == 'Floppy':
+            return bool(get_setting('floppy_apikey', 'str'))
         return False

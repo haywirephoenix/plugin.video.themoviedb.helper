@@ -648,6 +648,7 @@
                         <options>
                             <option>Trakt</option>
                             <option>MDbList</option>
+                            <option>Floppy</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>
@@ -659,6 +660,7 @@
                         <options>
                             <option>Trakt</option>
                             <option>MDbList</option>
+                            <option>Floppy</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>
@@ -670,6 +672,7 @@
                         <options>
                             <option>Trakt</option>
                             <option>MDbList</option>
+                            <option>Floppy</option>
                         </options>
                     </constraints>
                     <control type="spinner" format="string"/>

@@ -1,11 +1,13 @@
 from tmdbhelper.lib.addon.plugin import get_setting
 import tmdbhelper.lib.sync.trakt.synctype as trakt_synctype
 import tmdbhelper.lib.sync.mdblist.synctype as mdblist_synctype
+import tmdbhelper.lib.sync.floppy.synctype as floppy_synctype
 
 
 SYNC_SOURCE_MODULES = {
     'Trakt': trakt_synctype,
     'MDbList': mdblist_synctype,
+    'Floppy': floppy_synctype,
 }
 
 

@@ -72,6 +72,7 @@ class SyncLastActivities(SyncDataParentProperties):
 
         source_data = {
             'MDbList': self.get_mdblist_activities(),
+            'Floppy': self.get_floppy_activities(),
         }
 
         if not data and not any(source_data.values()):
@@ -89,6 +90,14 @@ class SyncLastActivities(SyncDataParentProperties):
             return self.mdblist_api.get_response_json('sync/last_activities') or {}
         except AttributeError:
             return {}
+
+    def get_floppy_activities(self):
+        if not self.floppy_api:
+            return {}
+        if not any(get_setting(keys['setting'], 'str') == 'Floppy' for keys in SOURCE_ACTIVITIES.values()):
+            return {}
+        from tmdbhelper.lib.sync.floppy.activity import FloppyLastActivities
+        return FloppyLastActivities(self.floppy_api).data
 
     @staticmethod
     def update_data_with_source_activities(data, source_data):

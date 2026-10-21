@@ -284,7 +284,7 @@ class SyncDataGetterUnHiddenShowEpisodesUpNext(SyncDataGetterDroppedWatchedUnHid
 
 def SyncDataGetterAllUnHiddenShowsInProgress(instance_syncdata):
     from tmdbhelper.lib.addon.plugin import get_setting
-    if get_setting('sync_source_watched', 'str') == 'MDbList':
+    if get_setting('sync_source_watched', 'str') in ('MDbList', 'Floppy'):  # Both report aired episodes remaining
         from tmdbhelper.lib.sync.mdblist.datasync import MDbListSyncDataGetterAllUnHiddenShowsInProgress
         return MDbListSyncDataGetterAllUnHiddenShowsInProgress(instance_syncdata)
     from tmdbhelper.lib.sync.trakt.datasync import TraktSyncDataGetterAllUnHiddenShowsInProgress
