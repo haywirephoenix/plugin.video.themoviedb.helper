@@ -5,11 +5,20 @@ from tmdbhelper.lib.addon.logger import kodi_log
 
 class PlayerDummy:
 
-    filename = 'dummy.mp4'
-    listitem_path = f'{ADDONPATH}/resources/dummy.mp4'
+    default_path = f'{ADDONPATH}/resources/dummy.mp4'
 
     def __init__(self, resolver=None):
         self.resolver = resolver
+
+    @cached_property
+    def listitem_path(self):
+        return get_setting('dummy_path', 'str') or self.default_path
+
+    @cached_property
+    def filename(self):
+        """ Name matched against the playing file to detect the dummy video """
+        from re import split
+        return split(r'[\\/]', self.listitem_path)[-1]  # Kodi paths use / but local Windows paths use \
 
     def wait(self, fileext=None, timeout=5, suspend=0):
         from tmdbhelper.lib.player.action.waiting import PlayerWaiting
@@ -44,6 +53,16 @@ class PlayerDummy:
     def duration(self):
         from jurialmunkey.parser import try_float
         return try_float(get_setting('dummy_duration', 'str')) or 1.0
+
+    @cached_property
+    def is_enabled(self):
+        return self.check_enabled()
+
+    def check_enabled(self):
+        if not get_setting('dummy_enabled'):
+            kodi_log(['lib.player - skipped dummy disabled in settings\n', self.filename], 1)
+            return False
+        return True
 
     @cached_property
     def is_strm(self):
@@ -112,6 +131,7 @@ class PlayerDummy:
         return all(func() for func in (
             lambda: self.is_handle,
             lambda: self.is_action,
+            lambda: self.is_enabled,
             lambda: self.is_strm,
             lambda: self.is_start,
             lambda: self.is_stop,

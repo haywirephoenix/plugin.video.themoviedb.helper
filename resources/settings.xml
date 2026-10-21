@@ -915,6 +915,26 @@
         </category>
         <category id="expert" label="10039" help="">
             <group id="1" label="32351">
+                <setting id="dummy_enabled" type="boolean" label="32990" help="32991">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="dummy_path" type="path" label="32992" help="32993">
+                    <level>0</level>
+                    <default/>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                        <writable>false</writable>
+                        <masking>video</masking>
+                    </constraints>
+                    <dependencies>
+                        <dependency type="enable" setting="dummy_enabled">true</dependency>
+                    </dependencies>
+                    <control type="button" format="file">
+                        <heading>32992</heading>
+                    </control>
+                </setting>
                 <setting id="dummy_duration" type="string" label="32352" help="">
                     <level>0</level>
                     <default>1.0</default>
@@ -930,6 +950,9 @@
                             <option>5.0</option>
                         </options>
                     </constraints>
+                    <dependencies>
+                        <dependency type="enable" setting="dummy_enabled">true</dependency>
+                    </dependencies>
                     <control type="spinner" format="string"/>
                 </setting>
                 <setting id="dummy_delay" type="string" label="32363" help="">
@@ -947,6 +970,9 @@
                             <option>3.0</option>
                         </options>
                     </constraints>
+                    <dependencies>
+                        <dependency type="enable" setting="dummy_enabled">true</dependency>
+                    </dependencies>
                     <control type="spinner" format="string"/>
                 </setting>
                 <setting id="only_resolve_strm" type="boolean" label="32373" help="">

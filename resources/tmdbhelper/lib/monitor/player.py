@@ -409,9 +409,14 @@ class PlayerMonitor(Player, CommonMonitorFunctions):
     def on_fullscreen(self):
         self.scrobbler_sync()
 
+    @property
+    def dummy_filename(self):
+        from tmdbhelper.lib.player.action.dummy import PlayerDummy
+        return PlayerDummy().filename
+
     def get_playingitem(self):
         # Check that video other than dummy splash video is playing
-        if self.getPlayingFile() and self.getPlayingFile().endswith('dummy.mp4'):
+        if self.getPlayingFile() and self.getPlayingFile().endswith(self.dummy_filename):
             self.reset_properties()
             return
 

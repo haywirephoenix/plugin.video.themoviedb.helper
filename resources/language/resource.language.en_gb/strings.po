@@ -2422,6 +2422,26 @@ msgctxt "#32548"
 msgid "Choose a provider for this feature, install or enable a supported provider, or choose None to disable it and hide its lists."
 msgstr ""
 
+#: /resources/settings.xml
+msgctxt "#32990"
+msgid "Use dummy video when resolving"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32991"
+msgid "Plays a short video first when a player opens a folder or uses PlayMedia, so Kodi does not retry resolving the item. Turn off if your players resolve directly"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32992"
+msgid "Custom dummy video"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32993"
+msgid "Leave empty to use the built-in dummy video"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr ""
