@@ -2768,6 +2768,21 @@ msgctxt "#32547"
 msgid "Subgenres"
 msgstr ""
 
+#: /resources/settings.xml
+msgctxt "#32548"
+msgid "Floppy API"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32549"
+msgid "Floppy server URL"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32550"
+msgid "Floppy API token"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr ""
