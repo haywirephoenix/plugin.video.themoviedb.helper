@@ -4,6 +4,7 @@ from tmdbhelper.lib.addon.plugin import get_setting
 
 SYNC_SOURCE_PROVIDERS = {
     'MDbList': 'mdblist',
+    'Floppy': 'floppy',
 }
 
 
