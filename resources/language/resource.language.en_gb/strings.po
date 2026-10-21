@@ -2798,6 +2798,26 @@ msgctxt "#32553"
 msgid "Skipped while the Floppy add-on (plugin.video.floppy) has its own scrobbling turned on, so plays are not logged twice"
 msgstr ""
 
+#: /resources/settings.xml
+msgctxt "#32554"
+msgid "Use dummy video when resolving"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32555"
+msgid "Plays a short video first when a player opens a folder or uses PlayMedia, so Kodi does not retry resolving the item. Turn off if your players resolve directly"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32556"
+msgid "Custom dummy video"
+msgstr ""
+
+#: /resources/settings.xml
+msgctxt "#32557"
+msgid "Leave empty to use the built-in dummy video"
+msgstr ""
+
 msgctxt "#30030"
 msgid "Hindi (India)"
 msgstr ""
