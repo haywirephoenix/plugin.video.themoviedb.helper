@@ -60,7 +60,14 @@ class SyncLastActivities(SyncDataParentProperties):
         data = data_loads(self.window.get_property(LASTACTIVITIES_DATA))
         if not data or not get_timestamp(data.get('expiry') or 0):
             return
+        if data.get('floppy_reload') != self.floppy_reload:  # Floppy data changed by another add-on
+            return
         return data
+
+    @cached_property
+    def floppy_reload(self):
+        from tmdbhelper.lib.api.floppy.api import get_floppy_reload
+        return get_floppy_reload()
 
     def get_json_sync(self):
         kodi_log('Sync: last_activities', 2)
@@ -81,6 +88,7 @@ class SyncLastActivities(SyncDataParentProperties):
         data = self.update_data_with_source_activities(data, source_data)
 
         data['expiry'] = set_timestamp(LASTACTIVITIES_EXPIRY)
+        data['floppy_reload'] = self.floppy_reload
         self.window.get_property(LASTACTIVITIES_DATA, set_property=data_dumps(data))
 
         return data

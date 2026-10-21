@@ -103,6 +103,21 @@ class Floppy(RequestAPI):
             method=method)
 
 
+FLOPPY_RELOAD_PROPERTY = 'floppy.widget_reload'  # Home window property shared with plugin.video.floppy
+
+
+def get_floppy_reload():
+    """ Token changed by any add-on after it changes Floppy data """
+    from jurialmunkey.window import get_property
+    return get_property(FLOPPY_RELOAD_PROPERTY, prefix=-1)
+
+
+def set_floppy_reload():
+    from jurialmunkey.window import get_property
+    from tmdbhelper.lib.addon.tmdate import set_timestamp
+    get_property(FLOPPY_RELOAD_PROPERTY, set_property=f'{set_timestamp(0, True)}', prefix=-1)
+
+
 def FloppyAPI():
     from tmdbhelper.lib.addon.plugin import get_setting
     if get_setting('floppy_apikey', 'str') and get_setting('floppy_url', 'str'):

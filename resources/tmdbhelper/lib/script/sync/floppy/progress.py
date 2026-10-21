@@ -16,3 +16,4 @@ class ItemProgress(ItemSync, BasicItemProgress):
             return
         self.invalidate_activity('playback', item_type=self.trakt_type)  # Floppy playback syncs shows as episodes
         self.syncdata.reset_lastactivities()
+        self.set_floppy_reload()

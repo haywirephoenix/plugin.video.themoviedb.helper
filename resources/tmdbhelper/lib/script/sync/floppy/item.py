@@ -108,3 +108,9 @@ class ItemSync(BasicItemSync):
         for method in self.activity_methods:
             self.invalidate_activity(method)
         self.syncdata.reset_lastactivities()
+        self.set_floppy_reload()
+
+    def set_floppy_reload(self):
+        """ Tell other Floppy add-ons (plugin.video.floppy) to refresh their cached lists """
+        from tmdbhelper.lib.api.floppy.api import set_floppy_reload
+        set_floppy_reload()

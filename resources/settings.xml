@@ -771,6 +771,14 @@
                         <dependency type="visible" operator="!is" setting="mdblist_apikey"></dependency>
                     </dependencies>
                 </setting>
+                <setting id="floppy_scrobbling" type="boolean" label="32551" help="32553">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" operator="!is" setting="floppy_apikey"></dependency>
+                    </dependencies>
+                </setting>
             </group>
         </category>
         <category id="details" label="32080" help="">
