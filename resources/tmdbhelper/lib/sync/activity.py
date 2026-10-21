@@ -9,7 +9,7 @@ from tmdbhelper.lib.files.locker import mutexlock
 from tmdbhelper.lib.sync.mixins import SyncDataParentProperties
 
 
-MDBLIST_ACTIVITIES = {
+SOURCE_ACTIVITIES = {
     'watchlisted_at': {
         'setting': 'sync_source_watchlist'
     },
@@ -70,31 +70,42 @@ class SyncLastActivities(SyncDataParentProperties):
         except AttributeError:
             data = {}
 
-        try:
-            mdblist_data = self.mdblist_api.get_response_json('sync/last_activities') or {}
-        except AttributeError:
-            mdblist_data = {}
+        source_data = {
+            'MDbList': self.get_mdblist_activities(),
+        }
 
-        if not data and not mdblist_data:
+        if not data and not any(source_data.values()):
             return
 
-        data = self.update_data_with_mdblist_activities(data, mdblist_data)
+        data = self.update_data_with_source_activities(data, source_data)
 
         data['expiry'] = set_timestamp(LASTACTIVITIES_EXPIRY)
         self.window.get_property(LASTACTIVITIES_DATA, set_property=data_dumps(data))
 
         return data
 
+    def get_mdblist_activities(self):
+        try:
+            return self.mdblist_api.get_response_json('sync/last_activities') or {}
+        except AttributeError:
+            return {}
+
     @staticmethod
-    def update_data_with_mdblist_activities(data, mdblist_data):
-        for activity_key, keys in MDBLIST_ACTIVITIES.items():
-            if get_setting(keys['setting'], 'str') != 'MDbList':
+    def update_data_with_source_activities(data, source_data):
+        """ Replace Trakt activities with those of the source selected for each sync type """
+        for activity_key, keys in SOURCE_ACTIVITIES.items():
+            try:
+                activities = source_data[get_setting(keys['setting'], 'str')]
+            except KeyError:  # Trakt
                 continue
             for item_type in ('movies', 'shows', 'seasons', 'episodes'):
-                activity_utc = mdblist_data.get(keys.get(item_type) or activity_key)
+                activity_utc = activities.get(keys.get(item_type) or activity_key)
                 data.setdefault(item_type, {})[activity_key] = activity_utc
-        if get_setting('sync_source_watched', 'str') == 'MDbList':
-            data.setdefault('shows', {})['dropped_at'] = mdblist_data.get('dropped_at')
+        try:
+            activities = source_data[get_setting('sync_source_watched', 'str')]
+        except KeyError:  # Trakt
+            return data
+        data.setdefault('shows', {})['dropped_at'] = activities.get('dropped_at')
         return data
 
     def is_expired(self, timestamp, keys=None):
